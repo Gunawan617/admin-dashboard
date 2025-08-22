@@ -4,46 +4,172 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Panel</title>
-  
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Heroicons CDN -->
-  <script src="https://unpkg.com/heroicons@2.0.18/dist/heroicons.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .sidebar-item {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .sidebar-item:hover {
+      transform: translateX(4px);
+    }
+    .glassmorphism {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .gradient-bg {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+    .active-menu {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+  </style>
 </head>
-<body class="bg-gray-100 font-sans flex min-h-screen">
-
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
   <!-- Sidebar -->
-  <aside class="w-64 bg-gray-800 text-white flex flex-col">
-    <div class="p-6 text-2xl font-bold border-b border-gray-700">
-      Admin Panel
+  <aside class="fixed left-0 top-0 w-72 h-full gradient-bg shadow-2xl z-40">
+    <!-- Logo/Header -->
+    <div class="p-8 border-b border-white/20">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center glassmorphism">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold text-white">Admin Panel</h1>
+          <p class="text-white/70 text-sm">Management System</p>
+        </div>
+      </div>
     </div>
-    <nav class="flex-1 p-4 space-y-2">
-      <a href="{{ route('admin.dashboard') }}" class="flex items-center p-2 rounded hover:bg-gray-700">
-        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12h18M3 6h18M3 18h18"/>
-        </svg>
-        Dashboard
+    
+    <!-- Navigation -->
+    <nav class="p-6 space-y-2">
+      <a href="{{ route('admin.dashboard') }}" class="sidebar-item flex items-center p-4 rounded-xl text-white/90 hover:bg-white/10 hover:text-white active-menu">
+        <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center mr-4">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="font-medium">Dashboard</div>
+          <div class="text-xs text-white/60">Overview & Analytics</div>
+        </div>
       </a>
-      <a href="{{ route('posts.index') }}" class="flex items-center p-2 rounded hover:bg-gray-700">
-        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-        </svg>
-        Posts
+      
+      <a href="{{ route('posts.index') }}" class="sidebar-item flex items-center p-4 rounded-xl text-white/90 hover:bg-white/10 hover:text-white">
+        <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center mr-4">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="font-medium">Posts</div>
+          <div class="text-xs text-white/60">Manage content</div>
+        </div>
       </a>
-      <a href="#" class="flex items-center p-2 rounded hover:bg-gray-700">
-        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6M12 9v6"/>
-        </svg>
-        Add Post
+      
+      <a href="#" class="sidebar-item flex items-center p-4 rounded-xl text-white/90 hover:bg-white/10 hover:text-white">
+        <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center mr-4">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+          </svg>
+        </div>
+        <div>
+          <div class="font-medium">Add Post</div>
+          <div class="text-xs text-white/60">Create new content</div>
+        </div>
       </a>
-      <!-- Tambahkan menu lain sesuai kebutuhan -->
+      
+      <a href="{{ route('admin.users.index') }}" class="sidebar-item flex items-center p-4 rounded-xl text-white/90 hover:bg-white/10 hover:text-white">
+        <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center mr-4">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="font-medium">Users</div>
+          <div class="text-xs text-white/60">User management</div>
+        </div>
+      </a>
+      
+      <!-- Logout -->
+      <div class="pt-6">
+        <form method="POST" action="{{ route('logout') }}">
+          @csrf
+          <button type="submit" class="sidebar-item flex items-center p-4 rounded-xl text-red-300 hover:bg-red-500/10 hover:text-red-200 w-full">
+            <div class="w-10 h-10 bg-red-500/10 rounded-lg flex items-center justify-center mr-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
+              </svg>
+            </div>
+            <div>
+              <div class="font-medium">Logout</div>
+              <div class="text-xs text-red-300/60">Sign out</div>
+            </div>
+          </button>
+        </form>
+      </div>
     </nav>
+    
+    <!-- User Profile -->
+    <div class="absolute bottom-0 left-0 right-0 p-6 border-t border-white/20">
+      <div class="flex items-center space-x-3 glassmorphism p-3 rounded-xl">
+        <div class="w-10 h-10 bg-gradient-to-r from-pink-500 to-violet-500 rounded-lg flex items-center justify-center">
+          <span class="text-white font-medium text-sm">AD</span>
+        </div>
+        <div class="flex-1">
+          <div class="text-white font-medium text-sm">Admin User</div>
+          <div class="text-white/60 text-xs">administrator</div>
+        </div>
+        <button class="text-white/60 hover:text-white">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
   </aside>
-
-  <!-- Main content -->
-  <main class="flex-1 p-6">
+  
+  <!-- Main Content -->
+  <main class="ml-72 p-8">
     @yield('content')
   </main>
-
+  
+  <script>
+    // Animate cards on scroll
+    document.addEventListener('DOMContentLoaded', function() {
+      const cards = document.querySelectorAll('.card-hover');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      });
+      cards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(card);
+      });
+    });
+  </script>
 </body>
 </html>

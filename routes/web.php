@@ -12,12 +12,17 @@ Route::get('/', function () {
 
 // Dashboard user
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('admin.dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+
 
 Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/', function () { return view('admin.dashboard'); })->name('admin.dashboard');
     Route::resource('posts', PostController::class);
+    Route::resource('users', App\Http\Controllers\Admin\UserController::class)
+        ->except(['create', 'store', 'destroy', 'show'])
+        ->names('admin.users');
 });
 
 
