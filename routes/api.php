@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\Admin\PostController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Admin\PostController;
 
 // Public routes
 Route::post('register', [RegisteredUserController::class, 'storeApi']);
@@ -15,8 +15,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('admin/posts', [PostController::class, 'storeApi']);
     Route::put('admin/posts/{id}', [PostController::class, 'updateApi']);
     Route::delete('admin/posts/{id}', [PostController::class, 'destroyApi']);
-    
-    // User profile
+
     Route::get('user/profile', [AuthenticatedSessionController::class, 'profile']);
     Route::post('logout', [AuthenticatedSessionController::class, 'apiLogout']);
 });
+
