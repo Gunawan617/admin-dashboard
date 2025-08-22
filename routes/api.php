@@ -4,6 +4,9 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\PostController;
 
+Route::get('public/posts', [PostController::class, 'indexApi']);
+Route::get('public/posts/{id}', [PostController::class, 'showApi']);
+
 // Public routes
 Route::post('register', [RegisteredUserController::class, 'storeApi']);
 Route::post('login', [AuthenticatedSessionController::class, 'apiLogin']);
