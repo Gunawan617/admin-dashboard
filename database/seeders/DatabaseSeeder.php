@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,11 +12,46 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // \App\Models\User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // \App\Models\User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
+
+        // Seed categories
+        \App\Models\Category::create([
+            'name' => 'Technology',
+            'slug' => 'technology',
+            'description' => 'Technology related posts'
+        ]);
+
+        \App\Models\Category::create([
+            'name' => 'Business',
+            'slug' => 'business',
+            'description' => 'Business related posts'
+        ]);
+
+        \App\Models\Category::create([
+            'name' => 'Lifestyle',
+            'slug' => 'lifestyle',
+            'description' => 'Lifestyle related posts'
+        ]);
+
+        // Seed tags
+        \App\Models\Tag::create([
+            'name' => 'Laravel',
+            'slug' => 'laravel'
+        ]);
+
+        \App\Models\Tag::create([
+            'name' => 'PHP',
+            'slug' => 'php'
+        ]);
+
+        \App\Models\Tag::create([
+            'name' => 'Web Development',
+            'slug' => 'web-development'
         ]);
     }
 }

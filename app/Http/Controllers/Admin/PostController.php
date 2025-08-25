@@ -12,7 +12,28 @@ class PostController extends Controller
     // API: List semua post
     public function indexApi()
     {
-        $posts = Post::latest()->paginate(10);
+        $posts = Post::with(['author', 'category', 'tags'])->latest()->paginate(10);
+        $posts->getCollection()->transform(function ($post) {
+            return [
+                'id' => $post->id,
+                'title' => $post->title,
+                'slug' => $post->slug,
+                'summary' => $post->summary,
+                'content' => $post->content,
+                'image' => $post->image,
+                'meta_title' => $post->meta_title,
+                'meta_description' => $post->meta_description,
+                'meta_keywords' => $post->meta_keywords,
+                'canonical_url' => $post->canonical_url,
+                'published_at' => $post->published_at,
+                'status' => $post->status,
+                'author' => $post->author,
+                'category' => $post->category,
+                'tags' => $post->tags,
+                'created_at' => $post->created_at,
+                'updated_at' => $post->updated_at,
+            ];
+        });
         return response()->json([
             'success' => true,
             'data' => $posts
@@ -22,7 +43,7 @@ class PostController extends Controller
     // API: Tampilkan detail post
     public function showApi($id)
     {
-        $post = Post::find($id);
+        $post = Post::with(['author', 'category', 'tags'])->find($id);
         if (!$post) {
             return response()->json([
                 'success' => false,
@@ -31,7 +52,25 @@ class PostController extends Controller
         }
         return response()->json([
             'success' => true,
-            'data' => $post
+            'data' => [
+                'id' => $post->id,
+                'title' => $post->title,
+                'slug' => $post->slug,
+                'summary' => $post->summary,
+                'content' => $post->content,
+                'image' => $post->image,
+                'meta_title' => $post->meta_title,
+                'meta_description' => $post->meta_description,
+                'meta_keywords' => $post->meta_keywords,
+                'canonical_url' => $post->canonical_url,
+                'published_at' => $post->published_at,
+                'status' => $post->status,
+                'author' => $post->author,
+                'category' => $post->category,
+                'tags' => $post->tags,
+                'created_at' => $post->created_at,
+                'updated_at' => $post->updated_at,
+            ]
         ]);
     }
 
@@ -43,6 +82,16 @@ class PostController extends Controller
             'summary' => 'required|string|max:500',
             'content' => 'required|string',
             'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,webp|max:2048',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string|max:255',
+            'meta_keywords' => 'nullable|string|max:255',
+            'canonical_url' => 'nullable|string|max:255',
+            'published_at' => 'nullable|date',
+            'status' => 'nullable|in:draft,published,archived',
+            'author' => 'nullable|string|max:255',
+            'category' => 'nullable|string|max:255',
+            'tags' => 'nullable|array',
+            'tags.*' => 'nullable|exists:tags,id',
         ]);
 
         $imagePath = null;
@@ -56,7 +105,19 @@ class PostController extends Controller
             'summary' => $request->summary,
             'content' => $request->content,
             'image' => $imagePath,
+            'meta_title' => $request->meta_title,
+            'meta_description' => $request->meta_description,
+            'meta_keywords' => $request->meta_keywords,
+            'canonical_url' => $request->canonical_url,
+            'published_at' => $request->published_at,
+            'status' => $request->status ?? 'draft',
+            'author' => $request->author,
+            'category' => $request->category,
         ]);
+
+        if ($request->has('tags')) {
+            $post->tags()->sync($request->tags);
+        }
 
         return response()->json([
             'success' => true,
@@ -81,6 +142,16 @@ class PostController extends Controller
             'summary' => 'required|string|max:500',
             'content' => 'required|string',
             'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,webp|max:2048',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string|max:255',
+            'meta_keywords' => 'nullable|string|max:255',
+            'canonical_url' => 'nullable|string|max:255',
+            'published_at' => 'nullable|date',
+            'status' => 'nullable|in:draft,published,archived',
+            'author' => 'nullable|string|max:255',
+            'category' => 'nullable|string|max:255',
+            'tags' => 'nullable|array',
+            'tags.*' => 'nullable|exists:tags,id',
         ]);
 
         if ($request->hasFile('image')) {
@@ -96,12 +167,38 @@ class PostController extends Controller
             'summary' => $request->summary,
             'content' => $request->content,
             'image' => $post->image,
+            'meta_title' => $request->meta_title,
+            'meta_description' => $request->meta_description,
+            'meta_keywords' => $request->meta_keywords,
+            'canonical_url' => $request->canonical_url,
+            'published_at' => $request->published_at,
+            'status' => $request->status ?? 'draft',
+            'author' => $request->author,
+            'category' => $request->category,
         ]);
 
         return response()->json([
             'success' => true,
             'message' => 'Post updated successfully.',
-            'data' => $post
+            'data' => [
+                'id' => $post->id,
+                'title' => $post->title,
+                'slug' => $post->slug,
+                'summary' => $post->summary,
+                'content' => $post->content,
+                'image' => $post->image,
+                'meta_title' => $post->meta_title,
+                'meta_description' => $post->meta_description,
+                'meta_keywords' => $post->meta_keywords,
+                'canonical_url' => $post->canonical_url,
+                'published_at' => $post->published_at,
+                'status' => $post->status,
+                'author' => $post->author,
+                'category' => $post->category,
+                'tags' => $post->tags,
+                'created_at' => $post->created_at,
+                'updated_at' => $post->updated_at,
+            ]
         ]);
     }
 
@@ -145,6 +242,16 @@ class PostController extends Controller
             'summary' => 'required|string|max:500',
             'content' => 'required|string',
             'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,webp|max:2048',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string|max:255',
+            'meta_keywords' => 'nullable|string|max:255',
+            'canonical_url' => 'nullable|string|max:255',
+            'published_at' => 'nullable|date',
+            'status' => 'nullable|in:draft,published,archived',
+            'author' => 'nullable|string|max:255',
+            'category' => 'nullable|string|max:255',
+            'tags' => 'nullable|array',
+            'tags.*' => 'nullable|exists:tags,id',
         ]);
 
         $imagePath = null;
@@ -152,15 +259,23 @@ class PostController extends Controller
             $imagePath = $request->file('image')->store('posts', 'public');
         }
 
-        Post::create([
+        $post = Post::create([
             'title' => $request->title,
             'slug' => Str::slug($request->title),
             'summary' => $request->summary,
             'content' => $request->content,
             'image' => $imagePath,
+            'meta_title' => $request->meta_title,
+            'meta_description' => $request->meta_description,
+            'meta_keywords' => $request->meta_keywords,
+            'canonical_url' => $request->canonical_url,
+            'published_at' => $request->published_at,
+            'status' => $request->status ?? 'draft',
+            'author' => $request->author,
+            'category' => $request->category,
         ]);
 
-        return redirect()->route('posts.index')->with('success', 'Post created successfully.');
+            return redirect()->route('admin.posts.index')->with('success', 'Post created successfully.');
     }
 
     // Tampilkan form edit
@@ -177,6 +292,16 @@ class PostController extends Controller
             'summary' => 'required|string|max:500',
             'content' => 'required|string',
             'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,webp|max:2048',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string|max:255',
+            'meta_keywords' => 'nullable|string|max:255',
+            'canonical_url' => 'nullable|string|max:255',
+            'published_at' => 'nullable|date',
+            'status' => 'nullable|in:draft,published,archived',
+            'author' => 'nullable|string|max:255',
+            'category' => 'nullable|string|max:255',
+            'tags' => 'nullable|array',
+            'tags.*' => 'nullable|exists:tags,id',
         ]);
 
         if ($request->hasFile('image')) {
@@ -193,9 +318,17 @@ class PostController extends Controller
             'summary' => $request->summary,
             'content' => $request->content,
             'image' => $post->image,
+            'meta_title' => $request->meta_title,
+            'meta_description' => $request->meta_description,
+            'meta_keywords' => $request->meta_keywords,
+            'canonical_url' => $request->canonical_url,
+            'published_at' => $request->published_at,
+            'status' => $request->status ?? 'draft',
+            'author' => $request->author,
+            'category' => $request->category,
         ]);
 
-        return redirect()->route('posts.index')->with('success', 'Post updated successfully.');
+            return redirect()->route('admin.posts.index')->with('success', 'Post updated successfully.');
     }
 
     // Hapus post
@@ -206,6 +339,6 @@ class PostController extends Controller
         }
         $post->delete();
 
-        return redirect()->route('posts.index')->with('success', 'Post deleted successfully.');
+        return redirect()->route('admin.posts.index')->with('success', 'Post deleted successfully.');
     }
 }

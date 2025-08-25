@@ -27,13 +27,7 @@
     .gradient-bg {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     }
-    .card-hover {
-      transition: all 0.3s ease;
-    }
-    .card-hover:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    }
+
     .active-menu {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
@@ -72,7 +66,7 @@
         </div>
       </a>
       
-      <a href="{{ route('posts.index') }}" class="sidebar-item flex items-center p-4 rounded-xl text-white/90 hover:bg-white/10 hover:text-white">
+      <a href="{{ route('admin.posts.index') }}" class="sidebar-item flex items-center p-4 rounded-xl text-white/90 hover:bg-white/10 hover:text-white">
         <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center mr-4">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
@@ -148,28 +142,10 @@
   
   <!-- Main Content -->
   <main class="ml-72 p-8">
-    @yield('content')
+  @yield('content')
+  @stack('scripts')
   </main>
   
-  <script>
-    // Animate cards on scroll
-    document.addEventListener('DOMContentLoaded', function() {
-      const cards = document.querySelectorAll('.card-hover');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-          }
-        });
-      });
-      cards.forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(card);
-      });
-    });
-  </script>
+
 </body>
 </html>
