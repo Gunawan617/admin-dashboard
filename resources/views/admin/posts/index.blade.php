@@ -15,6 +15,8 @@
             <th class="px-4 py-2">Title</th>
             <th class="px-4 py-2">Slug</th>
             <th class="px-4 py-2">Summary</th>
+            <th class="px-4 py-2">Author</th>
+            <th class="px-4 py-2">Category</th>
             <th class="px-4 py-2">Image</th>
             <th class="px-4 py-2">Actions</th>
         </tr>
@@ -25,6 +27,8 @@
             <td class="px-4 py-2">{{ $post->title }}</td>
             <td class="px-4 py-2">{{ $post->slug }}</td>
             <td class="px-4 py-2">{{ $post->summary }}</td>
+            <td class="px-4 py-2">{{ $post->author }}</td>
+            <td class="px-4 py-2">{{ $post->category }}</td>
             <td class="px-4 py-2">
                 @if($post->image)
                     <img src="{{ asset('storage/'.$post->image) }}" class="w-20">

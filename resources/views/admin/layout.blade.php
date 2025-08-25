@@ -148,10 +148,12 @@
   
   <!-- Main Content -->
   <main class="ml-72 p-8">
-    @yield('content')
+  @yield('content')
+  @stack('scripts')
   </main>
   
   <script>
+  <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     // Animate cards on scroll
     document.addEventListener('DOMContentLoaded', function() {
       const cards = document.querySelectorAll('.card-hover');
