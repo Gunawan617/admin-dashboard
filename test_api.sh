@@ -16,7 +16,7 @@ echo "1. Testing User Registration..."
 REGISTER_RESPONSE=$(curl -s -X POST "$BASE_URL/register" \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
-  -d '{"name":"API Test User","email":"apitest11@example.com","password":"password123"}')
+  -d '{"name":"API Test User","email":"apitest111@example.com","password":"password123"}')
 
 echo "Response: $REGISTER_RESPONSE"
 echo ""
