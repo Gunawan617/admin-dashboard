@@ -34,7 +34,9 @@
     </div>
     <x-form-input label="Author" name="author" type="text" :value="old('author')" />
     <x-form-input label="Category" name="category" type="text" :value="old('category')" />
-    <div class="mb-4">
+    <!-- Content editor akan dirender oleh Vue di bawah ini -->
+    <div id="post-form-app"></div>
+    <div class="mb-4" style="display:none">
         <label class="block mb-1">Content</label>
         <textarea name="content" class="w-full border px-2 py-1 rounded">{{ old('content') }}</textarea>
     </div>
@@ -45,3 +47,7 @@
     <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Save</button>
 </form>
 @endsection
+
+@push('scripts')
+    @vite('resources/js/post-form.js')
+@endpush

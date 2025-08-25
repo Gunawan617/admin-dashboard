@@ -12,7 +12,9 @@
     @method('PUT')
     <x-form-input label="Title" name="title" type="text" :value="$post->title" />
     <x-form-input label="Summary" name="summary" type="text" :value="$post->summary" />
-        <div class="mb-4">
+        <!-- Content editor akan dirender oleh Vue di bawah ini -->
+        <div id="post-form-app"></div>
+        <div class="mb-4" style="display:none">
             <label class="block mb-1">Content</label>
             <textarea name="content" class="w-full border px-2 py-1 rounded">{{ $post->content }}</textarea>
         </div>
@@ -44,3 +46,7 @@
     <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Update</button>
 </form>
 @endsection
+
+@push('scripts')
+    @vite('resources/js/post-form.js')
+@endpush

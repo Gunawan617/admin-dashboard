@@ -13,10 +13,15 @@ import { createApp } from 'vue';
  * to use in your application's views. An example is included for you.
  */
 
+
 const app = createApp({});
 
 import ExampleComponent from './components/ExampleComponent.vue';
+import ContentEditor from './components/ContentEditor.vue';
+import PostForm from './components/PostForm.vue';
 app.component('example-component', ExampleComponent);
+app.component('content-editor', ContentEditor);
+app.component('post-form', PostForm);
 
 /**
  * The following block of code may be used to automatically register your
