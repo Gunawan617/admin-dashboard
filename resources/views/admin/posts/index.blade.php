@@ -3,7 +3,7 @@
 @section('content')
 <h1 class="text-2xl font-bold mb-4">Posts</h1>
 
-<a href="{{ route('posts.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Add New Post</a>
+<a href="{{ route('admin.posts.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Add New Post</a>
 
 @if(session('success'))
     <x-alert type="success" :message="session('success')" />
@@ -35,8 +35,8 @@
                 @endif
             </td>
             <td class="px-4 py-2 flex gap-2">
-                <a href="{{ route('posts.edit', $post) }}" class="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600">Edit</a>
-                <form action="{{ route('posts.destroy', $post) }}" method="POST">
+                <a href="{{ route('admin.posts.edit', $post) }}" class="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600">Edit</a>
+                <form action="{{ route('admin.posts.destroy', $post) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" onclick="return confirm('Are you sure?')" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">Delete</button>

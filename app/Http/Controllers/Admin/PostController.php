@@ -259,7 +259,7 @@ class PostController extends Controller
             $imagePath = $request->file('image')->store('posts', 'public');
         }
 
-        Post::create([
+        $post = Post::create([
             'title' => $request->title,
             'slug' => Str::slug($request->title),
             'summary' => $request->summary,
@@ -275,7 +275,7 @@ class PostController extends Controller
             'category' => $request->category,
         ]);
 
-        return redirect()->route('posts.index')->with('success', 'Post created successfully.');
+            return redirect()->route('admin.posts.index')->with('success', 'Post created successfully.');
     }
 
     // Tampilkan form edit
@@ -328,7 +328,7 @@ class PostController extends Controller
             'category' => $request->category,
         ]);
 
-        return redirect()->route('posts.index')->with('success', 'Post updated successfully.');
+            return redirect()->route('admin.posts.index')->with('success', 'Post updated successfully.');
     }
 
     // Hapus post
@@ -339,6 +339,6 @@ class PostController extends Controller
         }
         $post->delete();
 
-        return redirect()->route('posts.index')->with('success', 'Post deleted successfully.');
+        return redirect()->route('admin.posts.index')->with('success', 'Post deleted successfully.');
     }
 }

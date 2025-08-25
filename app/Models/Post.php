@@ -21,18 +21,18 @@ class Post extends Model
         'canonical_url',
         'published_at',
         'status',
-        'author_id',
-        'category_id',
+        'author',
+        'category',
     ];
 
     public function author()
     {
-        return $this->belongsTo(User::class, 'author_id');
+        return $this->belongsTo(User::class, 'author');
     }
 
     public function category()
     {
-        return $this->belongsTo(Category::class, 'category_id');
+        return $this->belongsTo(Category::class, 'category');
     }
 
     public function tags()

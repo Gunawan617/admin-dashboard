@@ -7,7 +7,7 @@
     <x-alert type="error" :message="$errors->first()" />
 @endif
 
-<form action="{{ route('posts.update', $post) }}" method="POST" enctype="multipart/form-data" class="bg-white p-4 shadow rounded">
+<form action="{{ route('admin.posts.update', $post) }}" method="POST" enctype="multipart/form-data" class="bg-white p-4 shadow rounded">
     @csrf
     @method('PUT')
     <x-form-input label="Title" name="title" type="text" :value="$post->title" />

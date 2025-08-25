@@ -7,7 +7,9 @@
     <x-alert type="error" :message="$errors->first()" />
 @endif
 
-<form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data" class="bg-white p-4 shadow rounded">
+
+
+<form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data" class="bg-white p-4 shadow rounded">
     @csrf
     <x-form-input label="Title" name="title" type="text" :value="old('title')" />
     <x-form-input label="Summary" name="summary" type="text" :value="old('summary')" />
@@ -22,6 +24,14 @@
     </div>
     <x-form-input label="Canonical URL" name="canonical_url" type="text" :value="old('canonical_url')" />
     <x-form-input label="Published At" name="published_at" type="datetime-local" :value="old('published_at')" />
+    <div class="mb-4">
+        <label class="block mb-1">Status</label>
+        <select name="status" class="w-full border px-2 py-1 rounded">
+            <option value="draft" {{ old('status') == 'draft' ? 'selected' : '' }}>Draft</option>
+            <option value="published" {{ old('status') == 'published' ? 'selected' : '' }}>Published</option>
+            <option value="archived" {{ old('status') == 'archived' ? 'selected' : '' }}>Archived</option>
+        </select>
+    </div>
     <x-form-input label="Author" name="author" type="text" :value="old('author')" />
     <x-form-input label="Category" name="category" type="text" :value="old('category')" />
     <div class="mb-4">
