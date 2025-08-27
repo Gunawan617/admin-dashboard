@@ -54,7 +54,7 @@
     
     <!-- Navigation -->
     <nav class="p-6 space-y-2">
-      <a href="{{ route('admin.dashboard') }}" class="sidebar-item flex items-center p-4 rounded-xl text-white/90 hover:bg-white/10 hover:text-white active-menu">
+  <a href="{{ route('admin.dashboard') }}" class="sidebar-item flex items-center p-4 rounded-xl text-white/90 hover:bg-white/10 hover:text-white active-menu">
         <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center mr-4">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"/>
@@ -75,6 +75,18 @@
         <div>
           <div class="font-medium">Posts</div>
           <div class="text-xs text-white/60">Manage content</div>
+        </div>
+      </a>
+
+      <a href="{{ route('admin.books.index') }}" class="sidebar-item flex items-center p-4 rounded-xl text-white/90 hover:bg-white/10 hover:text-white">
+        <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center mr-4">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 19.5A2.5 2.5 0 006.5 22h11a2.5 2.5 0 002.5-2.5v-15A2.5 2.5 0 0017.5 2h-11A2.5 2.5 0 004 4.5v15zM8 6h8M8 10h8m-8 4h6"/>
+          </svg>
+        </div>
+        <div>
+          <div class="font-medium">Buku</div>
+          <div class="text-xs text-white/60">Manajemen buku</div>
         </div>
       </a>
       

@@ -53,5 +53,8 @@ class DatabaseSeeder extends Seeder
             'name' => 'Web Development',
             'slug' => 'web-development'
         ]);
+
+        // Seed books
+        \App\Models\Book::factory(10)->create();
     }
 }

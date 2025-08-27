@@ -1,22 +1,23 @@
 
 <template>
   <div>
-    <div class="editor-toolbar">
-      <button @click="editor.chain().focus().toggleBold().run()" :class="{ active: editor.isActive('bold') }"><b>B</b></button>
-      <button @click="editor.chain().focus().toggleItalic().run()" :class="{ active: editor.isActive('italic') }"><i>I</i></button>
-      <button @click="editor.chain().focus().toggleUnderline().run()" :class="{ active: editor.isActive('underline') }"><u>U</u></button>
-      <button @click="editor.chain().focus().toggleStrike().run()" :class="{ active: editor.isActive('strike') }"><s>S</s></button>
-      <button @click="editor.chain().focus().toggleHeading({ level: 1 }).run()" :class="{ active: editor.isActive('heading', { level: 1 }) }">H1</button>
-      <button @click="editor.chain().focus().toggleHeading({ level: 2 }).run()" :class="{ active: editor.isActive('heading', { level: 2 }) }">H2</button>
-      <button @click="editor.chain().focus().toggleBulletList().run()" :class="{ active: editor.isActive('bulletList') }">• List</button>
-      <button @click="editor.chain().focus().toggleOrderedList().run()" :class="{ active: editor.isActive('orderedList') }">1. List</button>
-      <button @click="editor.chain().focus().toggleBlockquote().run()" :class="{ active: editor.isActive('blockquote') }">❝</button>
-      <button @click="editor.chain().focus().toggleCode().run()" :class="{ active: editor.isActive('code') }">&lt;/&gt;</button>
-      <button @click="addLink">🔗</button>
-      <button @click="addImage">🖼️</button>
-      <button @click="editor.chain().focus().undo().run()">Undo</button>
-      <button @click="editor.chain().focus().redo().run()">Redo</button>
-    </div>
+<div class="editor-toolbar">
+  <button type="button" @click="editor.chain().focus().toggleBold().run()" :class="{ active: editor.isActive('bold') }"><b>B</b></button>
+  <button type="button" @click="editor.chain().focus().toggleItalic().run()" :class="{ active: editor.isActive('italic') }"><i>I</i></button>
+  <button type="button" @click="editor.chain().focus().toggleUnderline().run()" :class="{ active: editor.isActive('underline') }"><u>U</u></button>
+  <button type="button" @click="editor.chain().focus().toggleStrike().run()" :class="{ active: editor.isActive('strike') }"><s>S</s></button>
+  <button type="button" @click="editor.chain().focus().toggleHeading({ level: 1 }).run()" :class="{ active: editor.isActive('heading', { level: 1 }) }">H1</button>
+  <button type="button" @click="editor.chain().focus().toggleHeading({ level: 2 }).run()" :class="{ active: editor.isActive('heading', { level: 2 }) }">H2</button>
+  <button type="button" @click="editor.chain().focus().toggleBulletList().run()" :class="{ active: editor.isActive('bulletList') }">• List</button>
+  <button type="button" @click="editor.chain().focus().toggleOrderedList().run()" :class="{ active: editor.isActive('orderedList') }">1. List</button>
+  <button type="button" @click="editor.chain().focus().toggleBlockquote().run()" :class="{ active: editor.isActive('blockquote') }">❝</button>
+  <button type="button" @click="editor.chain().focus().toggleCode().run()" :class="{ active: editor.isActive('code') }">&lt;/&gt;</button>
+  <button type="button" @click="addLink">🔗</button>
+  <button type="button" @click="addImage">🖼️</button>
+  <button type="button" @click="editor.chain().focus().undo().run()">Undo</button>
+  <button type="button" @click="editor.chain().focus().redo().run()">Redo</button>
+</div>
+
     <editor-content :editor="editor" class="editor" />
     <input v-if="syncToTextarea" type="hidden" :name="syncToTextarea" :value="editor?.getHTML()" />
   </div>
