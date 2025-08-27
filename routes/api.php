@@ -6,11 +6,33 @@ use App\Http\Controllers\Admin\PostController;
 
 Route::get('public/posts', [PostController::class, 'indexApi']);
 Route::get('public/posts/{id}', [PostController::class, 'showApi']);
+Route::post('public/posts', [PostController::class, 'storeApi']);
+Route::put('public/posts/{id}', [PostController::class, 'updateApi']);
+Route::delete('public/posts/{id}', [PostController::class, 'destroyApi']);
+
+
+Route::post('/track', [AnalyticsController::class, 'store']);
+Route::get('/analytics', function() {
+    return \App\Models\Visit::orderBy('id', 'desc')->limit(10)->get();
+});
 
 
 // Public routes
 Route::post('register', [RegisteredUserController::class, 'storeApi']);
 Route::post('login', [AuthenticatedSessionController::class, 'apiLogin']);
+
+// Public Books API (untuk testing)
+Route::get('public/books', [App\Http\Controllers\Admin\BookController::class, 'indexApi']);
+Route::get('public/books/{id}', [App\Http\Controllers\Admin\BookController::class, 'showApi']);
+Route::post('public/books', [App\Http\Controllers\Admin\BookController::class, 'storeApi']);
+Route::put('public/books/{id}', [App\Http\Controllers\Admin\BookController::class, 'updateApi']);
+Route::delete('public/books/{id}', [App\Http\Controllers\Admin\BookController::class, 'destroyApi']);
+
+// Analytics API (untuk tracking visits dari Next.js)
+Route::post('analytics/track', [App\Http\Controllers\AnalyticsController::class, 'store']);
+Route::get('analytics/dashboard', [App\Http\Controllers\AnalyticsController::class, 'dashboard']);
+Route::get('analytics/visits', [App\Http\Controllers\AnalyticsController::class, 'getVisits']);
+Route::get('analytics/stats', [App\Http\Controllers\AnalyticsController::class, 'getStats']);
 
 // Protected routes
 Route::middleware('auth:sanctum')->group(function () {

@@ -10,7 +10,7 @@
     </div>
     <div class="mt-4">
       <label>Konten</label>
-      <content-editor ref="editorRef" />
+      <content-editor v-model:content="form.content" />
     </div>
     <div class="mt-4">
       <button type="submit" class="btn">Simpan</button>
@@ -24,8 +24,6 @@
 import { ref } from 'vue'
 import ContentEditor from './ContentEditor.vue'
 
-const editorRef = ref(null)
-
 const form = ref({
   title: '',
   summary: '',
@@ -38,11 +36,7 @@ const error = ref('')
 async function submitPost() {
   success.value = false
   error.value = ''
-
   try {
-    // Ambil konten dari editor
-    form.value.content = editorRef.value.getHTML()
-
     const res = await fetch('/api/admin/posts', {
       method: 'POST',
       headers: {
@@ -51,9 +45,7 @@ async function submitPost() {
       },
       body: JSON.stringify(form.value),
     })
-
     if (!res.ok) throw new Error('Gagal simpan')
-
     success.value = true
     form.value.title = ''
     form.value.summary = ''

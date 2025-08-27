@@ -15,11 +15,13 @@ Route::get('/dashboard', function () {
     return view('admin.dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::get('/admin/analytics', [AnalyticsController::class, 'dashboard'])->name('admin.analytics');
+
 
 
 
 Route::middleware(['auth'])->prefix('admin')->group(function () {
-    Route::get('/', function () { return view('admin.dashboard'); })->name('admin.dashboard');
+    Route::get('/', [App\Http\Controllers\AnalyticsController::class, 'dashboard'])->name('admin.dashboard');
     Route::resource('posts', PostController::class)->names('admin.posts');
     Route::resource('users', App\Http\Controllers\Admin\UserController::class)
         ->except(['create', 'store', 'destroy', 'show'])
