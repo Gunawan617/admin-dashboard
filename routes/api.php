@@ -3,6 +3,9 @@
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\TeamMemberController;
+
+Route::apiResource('team-members', TeamMemberController::class);
 
 Route::get('public/posts', [PostController::class, 'indexApi']);
 Route::get('public/posts/{id}', [PostController::class, 'showApi']);

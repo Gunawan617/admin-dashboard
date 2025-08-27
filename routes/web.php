@@ -3,6 +3,14 @@
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AnalyticsController;
+
+use App\Http\Controllers\Admin\TeamMemberController;
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('team-members', TeamMemberController::class);
+});
+
 
 // Homepage
 // Homepage
@@ -10,18 +18,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Dashboard user
-Route::get('/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware(['auth'])->name('dashboard');
 
-Route::get('/admin/analytics', [AnalyticsController::class, 'dashboard'])->name('admin.analytics');
+// Dashboard user (hanya bisa diakses setelah login, data dari controller)
+Route::middleware(['auth'])->get('/dashboard', [AnalyticsController::class, 'dashboard'])->name('dashboard');
+
+
 
 
 
 
 Route::middleware(['auth'])->prefix('admin')->group(function () {
-    Route::get('/', [App\Http\Controllers\AnalyticsController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/', [AnalyticsController::class, 'dashboard'])->name('admin.dashboard');
     Route::resource('posts', PostController::class)->names('admin.posts');
     Route::resource('users', App\Http\Controllers\Admin\UserController::class)
         ->except(['create', 'store', 'destroy', 'show'])
@@ -51,9 +58,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Auth routes
-require __DIR__.'/auth.php';
 
-// Optional home route
+// Auth routes (login, register, dll)
 Auth::routes();
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

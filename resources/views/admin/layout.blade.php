@@ -89,6 +89,20 @@
           <div class="text-xs text-white/60">Manajemen buku</div>
         </div>
       </a>
+
+      <!-- TEAM MEMBERS -->
+        <a href="{{ route('admin.team-members.index') }}" class="sidebar-item flex items-center p-4 rounded-xl text-white/90 hover:bg-white/10 hover:text-white">
+    <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center mr-4">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-4-4h-1M9 20H4v-2a4 4 0 014-4h1m0 0V8a4 4 0 118 0v6m-8 0h8"/>
+      </svg>
+    </div>
+    <div>
+      <div class="font-medium">Team Members</div>
+      <div class="text-xs text-white/60">Manage team</div>
+    </div>
+  </a>
+
       
       <a href="#" class="sidebar-item flex items-center p-4 rounded-xl text-white/90 hover:bg-white/10 hover:text-white">
         <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center mr-4">
