@@ -2,62 +2,56 @@
 
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnalyticsController;
-
 use App\Http\Controllers\Admin\TeamMemberController;
+use App\Http\Controllers\TryoutProgramController;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::resource('team-members', TeamMemberController::class);
-});
-
-
-// Homepage
-// Homepage
+// Homepage (public)
 Route::get('/', function () {
     return view('welcome');
 });
 
+// Group Admin (wajib login)
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [AnalyticsController::class, 'dashboard'])->name('dashboard');
 
-// Dashboard user (hanya bisa diakses setelah login, data dari controller)
-Route::middleware(['auth'])->get('/dashboard', [AnalyticsController::class, 'dashboard'])->name('dashboard');
+    // CRUD Bimbel Programs (Blade Dashboard)
+    Route::resource('bimbel-programs', \App\Http\Controllers\Admin\BimbelProgramController::class);
 
+    // CRUD Team Members
+    Route::resource('team-members', TeamMemberController::class);
 
-
-
-
-
-Route::middleware(['auth'])->prefix('admin')->group(function () {
-    Route::get('/', [AnalyticsController::class, 'dashboard'])->name('admin.dashboard');
-    Route::resource('posts', PostController::class)->names('admin.posts');
+    // CRUD Posts, Users, Books
+    Route::resource('posts', PostController::class)->names('posts');
     Route::resource('users', App\Http\Controllers\Admin\UserController::class)
         ->except(['create', 'store', 'destroy', 'show'])
-        ->names('admin.users');
+        ->names('users');
     Route::resource('books', App\Http\Controllers\Admin\BookController::class)
-        ->names('admin.books');
+        ->names('books');
+
+    // CRUD Tryout Programs (Blade Dashboard)
+    Route::prefix('tryout-programs')->name('tryout-programs.')->group(function () {
+        Route::get('/', [TryoutProgramController::class, 'indexWeb'])->name('index');
+        Route::get('/create', [TryoutProgramController::class, 'create'])->name('create');
+        Route::post('/', [TryoutProgramController::class, 'storeWeb'])->name('store');
+        Route::get('/{id}', [TryoutProgramController::class, 'showWeb'])->name('show');
+        Route::get('/{id}/edit', [TryoutProgramController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [TryoutProgramController::class, 'updateWeb'])->name('update');
+        Route::delete('/{id}', [TryoutProgramController::class, 'destroyWeb'])->name('destroy');
+    });
 });
 
+// Dashboard user biasa (setelah login)
+Route::middleware(['auth'])->get('/dashboard', [AnalyticsController::class, 'dashboard'])->name('dashboard');
 
-// Route::get('/', function () {
-//     return view('admin.dashboard');
-// })->name('dashboard');
-
-// Admin routes
-// Route::middleware(['auth'])->prefix('admin')->group(function () {
-//     Route::get('/', function () {
-//         return view('admin.dashboard');
-//     })->name('admin.dashboard');
-
-//     Route::resource('posts', PostController::class);
-// });
-
-// Profile routes
+// Profile user
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
-// Auth routes (login, register, dll)
+// Auth routes (login, register, logout)
 Auth::routes();

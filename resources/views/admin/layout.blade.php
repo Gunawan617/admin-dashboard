@@ -104,17 +104,31 @@
   </a>
 
       
-      <a href="#" class="sidebar-item flex items-center p-4 rounded-xl text-white/90 hover:bg-white/10 hover:text-white">
-        <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center mr-4">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-          </svg>
-        </div>
-        <div>
-          <div class="font-medium">Add Post</div>
-          <div class="text-xs text-white/60">Create new content</div>
-        </div>
-      </a>
+     <a href="{{ route('admin.tryout-programs.index') }}" class="sidebar-item flex items-center p-4 rounded-xl text-white/90 hover:bg-white/10 hover:text-white">
+  <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center mr-4">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18M3 17h18"/>
+    </svg>
+  </div>
+  <div>
+    <div class="font-medium">Tryout</div>
+    <div class="text-xs text-white/60">Manage tryouts</div>
+  </div>
+</a>
+
+<a href="{{ route('admin.bimbel-programs.index') }}" class="sidebar-item flex items-center p-4 rounded-xl text-white/90 hover:bg-white/10 hover:text-white">
+  <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center mr-4">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2"/>
+    </svg>
+  </div>
+  <div>
+    <div class="font-medium">Bimbel</div>
+    <div class="text-xs text-white/60">Manage Bimbel Programs</div>
+  </div>
+</a>
+
+
       
       <a href="{{ route('admin.users.index') }}" class="sidebar-item flex items-center p-4 rounded-xl text-white/90 hover:bg-white/10 hover:text-white">
         <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center mr-4">
@@ -127,6 +141,8 @@
           <div class="text-xs text-white/60">User management</div>
         </div>
       </a>
+      
+
       
       <!-- Logout -->
       <div class="pt-6">

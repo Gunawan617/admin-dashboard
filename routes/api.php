@@ -5,6 +5,16 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\TeamMemberController;
 
+use App\Http\Controllers\TryoutProgramController;
+use App\Http\Controllers\BimbelProgramController;
+
+Route::apiResource('bimbel-programs', BimbelProgramController::class);
+
+
+
+Route::apiResource('tryout-programs', TryoutProgramController::class);
+
+
 Route::apiResource('team-members', TeamMemberController::class);
 
 Route::get('public/posts', [PostController::class, 'indexApi']);
